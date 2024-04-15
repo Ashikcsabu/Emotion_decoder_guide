@@ -37,3 +37,40 @@ for _ in range(0, t):
         print(ans[i])
 
 # } Driver Code Ends
+
+
+
+#normal logic of the program :
+"""Given two arrays a and b both of size n. Given q queries in an array query each having a positive integer x denoting an index of the array a. For each query, your task is to find all the elements less than or equal to a[x] in the array b.
+
+Example 1:
+
+Input:
+n = 3
+a[] = {4,1,2}
+b[] = {1,7,3}
+q = 2
+query[] = {0,1}
+Output : 
+2
+1
+Explanation: 
+For 1st query, the given index is 0, a[0] = 4. There are 2 elements(1 and 3) which are less than or equal to 4.
+For 2nd query, the given index is 1, a[1] = 1. There exists only 1 element(1) which is less than or equal to 1.
+
+Python code:
+
+n = 3#number of elemts in a and b
+a= [4,1,2]
+b = [1,7,3]
+q = 2 #query parameter size
+query = [0,1]
+for i in query:
+    ct=0
+    for j in b:
+        if j<=a[i]:
+            ct+=1
+    print(ct)
+"""
+
+
