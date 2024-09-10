@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>About - Adventure Website Template</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+	<div id="page">
+		<div id="header">
+			<ul id="navigation">
+				<li>
+					<a href="index.html"><b>Intro</a>
+				</li>
+				<li class="selected">
+					<a href="about.html">About Project</a>
+				</li>
+				<li>
+					<a href="contact.html">Contact</a>
+				</li>
+			</ul>
+		</div>
+		<!-- /#header -->
+		<div id="contents">
+			<div id="adbox">
+				<div class="video-container">
+					<video src="images/COVER_ABOUT.mp4" height="444" width="630" autoplay controls>
+						Your browser does not support the video tag.
+					</video>
+				</div>
+				<div class="info">
+					<h2>Emotion Decoder Ui/Ux &nbsp;&nbsp;</h2>
+					<p>Our interactive platform allows users to upload videos and receive real-time emotional analysis as the video plays. As the video progresses, the emotions detected are dynamically displayed, updating second by second. This feature enhances user engagement by providing live feedback, making the experience both informative and immersive.</p>
+				</div>
+			</div>
+			<!-- /#adbox -->
+			<div id="about" class="section">
+				<div class="column2">
+					<h2>Emotion Prediction from Audio Using Deep Learning</h2>
+						<p><strong>This project focuses on detecting emotions from audio files using a convolutional neural network (CNN). The audio files come from popular datasets like TESS, RAVDESS, and SAVEE. The steps in the code are as follows:</strong></p>
+                        <h3>Data Preparation:</h3>
+                        <ul>
+                            <li>The datasets from various sources are combined, and non-relevant emotion labels, such as 'calm', are removed to ensure focus on a consistent set of emotions.</li>
+                            <li>The total number of audio samples is displayed, followed by a function that visually presents the audio waveform, spectrogram, and Mel-Frequency Cepstral Coefficients (MFCCs) for any selected emotion.</li>
+                        </ul>
+                        
+                        <h3>MFCC Feature Extraction:</h3>
+                        <ul>
+                            <li>For each audio file, MFCCs are extracted as key features for emotion classification. MFCCs represent the short-term power spectrum of sound, which is highly useful in distinguishing between different emotions.</li>
+                            <li>Since the MFCCs have varying lengths depending on the audio file, each feature array is resized to a uniform shape (30x150). This ensures that all input data is of the same size, which is required by the CNN model.</li>
+                        </ul>
+                        
+						<iframe width="444" height="315" src="https://www.youtube.com/embed/SJo7vPgRlBQ?si=mysOBKn2Q2UrgLDL" 
+        					title="YouTube video player" 
+        					frameborder="0" 
+        					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        					allowfullscreen>
+						</iframe>
+                        <h3>Data Splitting and Preprocessing:</h3>
+                        <ul>
+                            <li>The dataset is split into training, validation, and test sets. This ensures the model is properly trained and evaluated on unseen data.</li>
+                            <li>To improve the model's performance, normalization is applied, scaling the data based on the mean and standard deviation of the training set. This ensures the CNN model can converge faster and more efficiently.</li>
+                        </ul>
+                        
+                        <h3>CNN Model Architecture:</h3>
+                        <ul>
+                            <li>A convolutional neural network (CNN) is built using TensorFlow/Keras. The network consists of multiple convolutional layers, max-pooling, and batch normalization layers to efficiently extract features from the MFCCs.</li>
+                            <li>Dropout layers are added to prevent overfitting by randomly dropping some neurons during training.</li>
+                            <li>The final output layer uses the softmax activation function to predict one of the seven emotions: angry, disgust, fear, happy, neutral, sad, or surprise.</li>
+                        </ul>
+                        
+                        <h3>Training and Early Stopping:</h3>
+                        <ul>
+                            <li>The model is compiled using the Adam optimizer and categorical cross-entropy loss for multi-class classification.</li>
+                            <li>An early stopping callback is implemented to stop the training process when the model's performance no longer improves, preventing overfitting and saving time.</li>
+                        </ul>
+
+					</p>
+				</div>
+				<div class="column2">
+					<h2>Backend Workflow for Emotion Prediction from Audio in a Video</h2>
+    				<p>This Django project allows users to upload a video file, extract audio from the video, split the audio into chunks, and predict emotions for each audio segment using a pre-trained deep learning model. Here's a detailed explanation of the code and its workflow:</p>
+
+    				<h3>1. File Upload and Request Handling</h3>
+    				<p>The project begins by defining a view function <code>upload_video()</code> to handle HTTP POST requests. This view accepts video uploads and processes the video to predict emotions from its audio.</p>
+
+    				<ul>
+    				    <li><strong>Request Handling:</strong> The function first checks if the HTTP request is a POST request and if a video file is present (<code>request.FILES.get('video')</code>). The uploaded video is temporarily saved to the <code>media</code> directory with the name <code>video.mp4</code>.</li>
+    				    <li><strong>Extract Audio from Video:</strong> Once the video is saved, the <code>extract_audio()</code> function is called, extracting audio from the video file and saving it as <code>audio.mp3</code> in the same directory.</li>
+    				    <li><strong>Emotion Prediction:</strong> After audio extraction, the <code>prediction1()</code> function processes the audio file by splitting it into 3-second chunks and predicts emotions for each segment. The predicted emotions are then passed as JSON to the <code>analytics.html</code> template for rendering.</li>
+    				</ul>
+				
+    				<h3>2. Extract Audio from Video</h3>
+    				<p>The function <code>extract_audio()</code> uses the <code>moviepy</code> library to extract audio from the video file. The audio is saved as <code>audio.mp3</code> in the <code>media</code> directory.</p>
+				
+    				<ul>
+    				    <li>Load the video file using <code>VideoFileClip</code>.</li>
+    				    <li>Extract the audio part of the video using <code>video_clip.audio</code>.</li>
+    				    <li>Save the audio file using <code>audio_clip.write_audiofile()</code>.</li>
+    				</ul>
+				
+    				<h3>3. Audio Segmentation and Emotion Prediction</h3>
+    				<p>The <code>prediction1()</code> function processes the extracted audio by dividing it into smaller 3-second chunks. Each chunk is saved as a <code>.wav</code> file and fed to a pre-trained CNN model for emotion prediction.</p>
+				
+    				<ul>
+    				    <li><strong>Audio Segmentation:</strong> The audio file is split into 3-second segments.</li>
+    				    <li><strong>Emotion Prediction:</strong> Each segment is passed to the <code>inf()</code> function, which loads the audio, extracts MFCC (Mel-Frequency Cepstral Coefficients) features, and uses the model to predict one of the seven emotions. The predictions for each segment are stored in a dictionary with time intervals as keys and the predicted emotions as values.</li>
+    				</ul>
+				
+    				<h3>4. CNN Model for Emotion Prediction</h3>
+    				<p>The <code>inf()</code> function takes each audio segment as input and extracts MFCC features using the <code>librosa</code> library. These features are then normalized using pre-computed mean and standard deviation values (<code>tr_mean</code> and <code>tr_std</code>). The features are passed to a pre-trained CNN model (<code>inf_model</code>) to predict the emotion.</p>
+				
+    				<ul>
+    				    <li><strong>MFCC Extraction:</strong> MFCCs are extracted using <code>librosa.feature.mfcc()</code> and resized to a uniform shape (30x150) for consistent input.</li>
+    				    <li><strong>Standardization:</strong> The extracted features are normalized using pre-loaded mean and standard deviation values.</li>
+    				    <li><strong>Model Prediction:</strong> The CNN model predicts one of the seven emotions: angry, disgust, fear, happy, neutral, sad, or surprise.</li>
+    				</ul>
+					<br>
+					<br>
+    				</div>
+					<h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Applications of Emotion Decoder In A Short Video</h2>
+					<br>
+					<video src="images/applications.mp4" height="504" width="950" controls>
+						Your browser does not support the video tag.
+					</video>
+		</div>
+		<div id="footer">
+			<div>
+				<!-- /#links -->
+				<p class="footnote">
+					@ashikcsabu project explanation guides
+				</p>
+			</div>
+	    </div>
+	<!-- /#page -->
+</body>
+</html>
